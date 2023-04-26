@@ -78,7 +78,6 @@
 ******************************************************************************/
 #include "GUI_Paint.h"
 #include "DEV_Config.h"
-#include "Debug.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -139,10 +138,10 @@ parameter:
 void Paint_SetRotate(UWORD Rotate)
 {
     if(Rotate == ROTATE_0 || Rotate == ROTATE_90 || Rotate == ROTATE_180 || Rotate == ROTATE_270) {
-        Debug("Set image Rotate %d\r\n", Rotate);
+        //Debug("Set image Rotate %d\r\n", Rotate);
         Paint.Rotate = Rotate;
     } else {
-        Debug("rotate = 0, 90, 180, 270\r\n");
+        //Debug("rotate = 0, 90, 180, 270\r\n");
     }
 }
 
@@ -161,8 +160,8 @@ void Paint_SetScale(UBYTE scale)
         Paint.Scale = scale;
         Paint.WidthByte = Paint.WidthMemory*2; 
     }else{
-        Debug("Set Scale Input parameter error\r\n");
-        Debug("Scale Only support: 2 4 16 65\r\n");
+        //Debug("Set Scale Input parameter error\r\n");
+        //Debug("Scale Only support: 2 4 16 65\r\n");
     }
 }
 /******************************************************************************
@@ -174,10 +173,10 @@ void Paint_SetMirroring(UBYTE mirror)
 {
     if(mirror == MIRROR_NONE || mirror == MIRROR_HORIZONTAL || 
         mirror == MIRROR_VERTICAL || mirror == MIRROR_ORIGIN) {
-        Debug("mirror image x:%s, y:%s\r\n",(mirror & 0x01)? "mirror":"none", ((mirror >> 1) & 0x01)? "mirror":"none");
+        //Debug("mirror image x:%s, y:%s\r\n",(mirror & 0x01)? "mirror":"none", ((mirror >> 1) & 0x01)? "mirror":"none");
         Paint.Mirror = mirror;
     } else {
-        Debug("mirror should be MIRROR_NONE, MIRROR_HORIZONTAL, \
+        //Debug("mirror should be MIRROR_NONE, MIRROR_HORIZONTAL, \
         MIRROR_VERTICAL or MIRROR_ORIGIN\r\n");
     }    
 }
@@ -192,7 +191,7 @@ parameter:
 void Paint_SetPixel(UWORD Xpoint, UWORD Ypoint, UWORD Color)
 {
     if(Xpoint > Paint.Width || Ypoint > Paint.Height){
-        Debug("Exceeding display boundaries\r\n");
+        //Debug("Exceeding display boundaries\r\n");
         return;
     }      
     UWORD X, Y;
@@ -236,7 +235,7 @@ void Paint_SetPixel(UWORD Xpoint, UWORD Ypoint, UWORD Color)
     }
 
     if(X > Paint.WidthMemory || Y > Paint.HeightMemory){
-        Debug("Exceeding display boundaries\r\n");
+        //Debug("Exceeding display boundaries\r\n");
         return;
     }
     
@@ -334,7 +333,7 @@ void Paint_DrawPoint(UWORD Xpoint, UWORD Ypoint, UWORD Color,
                      DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_Style)
 {
     if (Xpoint > Paint.Width || Ypoint > Paint.Height) {
-        Debug("Paint_DrawPoint Input exceeds the normal display range\r\n");
+        //Debug("Paint_DrawPoint Input exceeds the normal display range\r\n");
         printf("Xpoint = %d , Paint.Width = %d  \r\n ",Xpoint,Paint.Width);
         printf("Ypoint = %d , Paint.Height = %d  \r\n ",Ypoint,Paint.Height);
         return;
@@ -375,7 +374,7 @@ void Paint_DrawLine(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
 {
     if (Xstart > Paint.Width || Ystart > Paint.Height ||
         Xend > Paint.Width || Yend > Paint.Height) {
-        Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
+        //Debug("Paint_DrawLine Input exceeds the normal display range\r\n");
         return;
     }
 
@@ -436,7 +435,7 @@ void Paint_DrawRectangle(UWORD Xstart, UWORD Ystart, UWORD Xend, UWORD Yend,
 {
     if (Xstart > Paint.Width || Ystart > Paint.Height ||
         Xend > Paint.Width || Yend > Paint.Height) {
-        Debug("Input exceeds the normal display range\r\n");
+       // Debug("Input exceeds the normal display range\r\n");
         return;
     }
 
@@ -468,7 +467,7 @@ void Paint_DrawCircle(UWORD X_Center, UWORD Y_Center, UWORD Radius,
                       UWORD Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill)
 {
     if (X_Center > Paint.Width || Y_Center >= Paint.Height) {
-        Debug("Paint_DrawCircle Input exceeds the normal display range\r\n");
+        //Debug("Paint_DrawCircle Input exceeds the normal display range\r\n");
         return;
     }
 
@@ -533,7 +532,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
+/*void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
                     sFONT* Font, UWORD Color_Foreground, UWORD Color_Background)
 {
 
@@ -565,10 +564,10 @@ void Paint_DrawChar(UWORD Xpoint, UWORD Ypoint, const char Acsii_Char,
         ptr++;
       }
     }/* Write a line */
-    if (Font->Width % 8 != 0) {
+  /*  if (Font->Width % 8 != 0) {
       ptr++;
     }
-  }/* Write all */
+  }
 }
 
 /******************************************************************************
@@ -581,7 +580,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawString_EN(UWORD Xstart, UWORD Ystart, const char * pString,
+/*void Paint_DrawString_EN(UWORD Xstart, UWORD Ystart, const char * pString,
                          sFONT* Font, UWORD Color_Foreground, UWORD Color_Background)
 {
     UWORD Xpoint = Xstart;
@@ -627,7 +626,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-#define  ARRAY_LEN 255
+/*#define  ARRAY_LEN 255
 void Paint_DrawNum(UWORD Xpoint, UWORD Ypoint,const char * Number,
                    sFONT* Font, UWORD Digit,UWORD Color_Foreground, UWORD Color_Background)
 { 
@@ -686,7 +685,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawTime(UWORD Xstart, UWORD Ystart, PAINT_TIME *pTime, sFONT* Font,
+/*void Paint_DrawTime(UWORD Xstart, UWORD Ystart, PAINT_TIME *pTime, sFONT* Font,
                     UWORD Color_Foreground, UWORD Color_Background)
 {
     uint8_t value[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};

@@ -1,13 +1,16 @@
 #include "OLED_Driver.h"
 #include "GUI_paint.h"
 #include "DEV_Config.h"
-#include "Debug.h"
+#include "setupScreen.h"
 #ifndef ARDUINO_ARCH_AVR
 #include <Arduino.h>
 #endif
-void drawTargetTemp(int targetTemp, int ForC);
-void drawCurrentTemp(int CurrentTemp, int ForC);
-void drawTimer(int hours, int minutes);
+
+
+
+void drawTargetTemp(float targetTemp, int ForC, int set);
+void drawCurrentTemp(float temp, int ForC);
+void drawTimer(int hours, int minutes, int set);
 void drawWattage();
 
 void DrawNumber(int x, int y, int h, int w, int num);
